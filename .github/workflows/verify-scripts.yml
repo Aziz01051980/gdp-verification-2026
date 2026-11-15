@@ -1,0 +1,65 @@
+
+name: GDP Scripts Verification
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependency
+        run: python -m pip install openpyxl
+
+      - name: Run GDP Script 1
+        run: python GDP_script.py
+
+      - name: Run GDP Script 2
+        run: python GDP_script_v2.py
+
+      - name: Verify calculated results
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          files = [
+              "gdp_research_output/US_GDP_Q2_2026_results.json",
+              "gdp_research_output/US_REAL_GDP_Q2_2026_results.json",
+          ]
+
+          for filename in files:
+              path = Path(filename)
+              assert path.exists(), f"Missing output: {filename}"
+
+              data = json.loads(path.read_text(encoding="utf-8"))
+              result = data["primary_verification"]
+
+              assert result["matches_after_rounding"], (
+                  f"Published figure does not match: {filename}"
+              )
+
+              print(f"PASS: {filename}")
+
+          PY
+
+      - name: Save verification reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: GDP-verification-results
+          path: gdp_research_output/
+          if-no-files-found: warn
