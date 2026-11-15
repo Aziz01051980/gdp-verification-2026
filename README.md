@@ -2,60 +2,111 @@
 
 ## Project Overview
 
-This project examines the verification and communication of official U.S. Gross Domestic Product (GDP) growth figures for the second and third quarters of 2026.
+This project examines the verification, revision, and communication of official U.S. Gross Domestic Product (GDP) growth estimates for the second and third quarters of 2026.
 
-The research uses data published by the U.S. Bureau of Economic Analysis (BEA), manual calculations, Python scripts, and media reporting analysis.
+The research uses data published by the U.S. Bureau of Economic Analysis (BEA), independent manual calculations, Python-based computational verification, and an analysis of media reporting.
+
+The central purpose is to assess the reproducibility of published GDP growth figures and examine how statistical revisions and data communication affect their interpretation.
 
 ## Research Objectives
 
-- Verify published GDP growth rates using BEA data.
+- Verify published GDP growth rates using official BEA data.
 - Recalculate annualized quarterly real GDP growth.
-- Compare different BEA data vintages and revisions.
+- Compare different BEA data vintages and subsequent revisions.
 - Examine how media outlets report and frame GDP results.
 - Identify the strengths and limitations of computational verification.
 
-## Data and Findings
+## Data and Key Findings
 
-The project examines two BEA data releases:
+The project examines the following BEA GDP estimates:
 
-- **Q2 2026:** The August 26, 2026 release reported annualized real GDP growth of 1.5%.
-- **Q3 2026:** The October 29, 2026 advance estimate reported annualized real GDP growth of 3.4%, with Q2 revised to 2.2%.
+- **Q2 2026:** The second estimate, released on August 26, 2026, reported annualized real GDP growth of 1.5%.
+- **Q2 2026 revision:** The third estimate, released on September 30, 2026, revised growth to 2.2%.
+- **Q3 2026:** The advance estimate, released on October 29, 2026, reported annualized real GDP growth of 3.4%.
 
-The difference between the two Q2 figures reflects a revision to the BEA estimate, rather than a calculation error.
+The difference between the Q2 estimates reflects revisions to the underlying BEA national accounts data rather than necessarily indicating a computational error.
+
+These observations demonstrate the importance of distinguishing between initial estimates, subsequent revisions, and different data vintages.
 
 ## Methodology
 
-The verification process includes:
+The verification process consists of five stages:
 
-1. Obtaining official BEA GDP data.
-2. Manually calculating annualized quarterly growth.
-3. Comparing calculations with published BEA figures.
-4. Reviewing Python scripts used for verification.
-5. Comparing media coverage and reporting language.
+1. Obtaining official BEA GDP data and identifying the relevant data vintages.
+2. Manually calculating annualized quarterly real GDP growth.
+3. Comparing independent calculations with published BEA figures.
+4. Running two Python scripts to examine computational reproducibility.
+5. Reviewing media coverage and reporting language to assess how GDP results are communicated.
 
-The annualized growth calculation is:
+### Annualized GDP Growth Calculation
+
+The annualized quarterly growth rate is calculated using:
 
 \[
-\left(\frac{\text{Current Quarter GDP}}{\text{Previous Quarter GDP}}\right)^4 - 1
+g_{\text{annualized}} =
+\left[
+\left(\frac{GDP_t}{GDP_{t-1}}\right)^4-1
+\right]\times100
 \]
+
+Where:
+
+- \(GDP_t\) represents real GDP in the current quarter.
+- \(GDP_{t-1}\) represents real GDP in the preceding quarter.
+- The exponent 4 annualizes the quarterly growth rate.
+- The result is expressed as a percentage.
+
+The calculations use comparable real GDP observations from the relevant BEA data vintage.
+
+## Python Verification
+
+The repository includes two Python scripts:
+
+- `GDP_script.py`
+- `GDP_script_v2.py`
+
+Both scripts provide computational approaches to examining published GDP growth figures using BEA data.
+
+Their execution and outputs are examined as part of the reproducibility process.
 
 ## Repository Structure
 
-- `report/` — Final research report.
-- `data/` — Official BEA data files.
-- `scripts/` — Python verification scripts.
-- `results/` — Calculation results and findings.
+The main project files are maintained in the repository:
 
-## Important Limitation
+- `GDP_script.py` — First GDP verification script.
+- `GDP_script_v2.py` — Alternative GDP verification script.
+- `Section1all_xls.xlsx` — Supporting BEA data.
+- `Table (2).xlsx` — Additional supporting data.
+- `US_GDP_Verification_Research_Report.pdf` — Full research report.
+- `README.md` — Project documentation.
 
-Manual calculations and Python scripts use the same underlying BEA data. They provide computational checks, but do not independently validate the underlying national accounts.
+## Important Limitations
 
-The Q3 2026 figure is an advance estimate and may be revised.
+Manual calculations and Python scripts use the same underlying BEA source data. Consequently, they provide computational verification but do not independently validate the underlying national accounts or the original statistical data collection process.
 
-## Main Report
+Furthermore, BEA GDP estimates are subject to revision as additional source information becomes available.
 
-See the `report/` folder for the full research report.
+The Q3 2026 figure examined in this research is an advance estimate and should not be treated as a final estimate.
 
-## Source
+The distinction between computational reproducibility and independent statistical validation is central to interpreting the project's findings.
 
-U.S. Bureau of Economic Analysis (BEA): https://www.bea.gov/
+## Main Research Report
+
+The full research report is available in:
+
+`US_GDP_Verification_Research_Report.pdf`
+
+It provides further details on the data, calculations, verification procedures, findings, and research limitations.
+
+## Official Data Sources
+
+**U.S. Bureau of Economic Analysis (BEA)**
+
+- [BEA Official GDP Data](https://www.bea.gov/data/gdp/gross-domestic-product)
+- [GDP Second Estimate, Q2 2026 — August 26, 2026](https://www.bea.gov/)
+- [GDP Third Estimate, Q2 2026 — September 30, 2026](https://www.bea.gov/)
+- [GDP Advance Estimate, Q3 2026 — October 29, 2026](https://www.bea.gov/news/2026/gdp-advance-estimate-3rd-quarter-2026)
+
+---
+
+**Research focus:** GDP data verification, statistical revisions, computational reproducibility, and economic data communication.
